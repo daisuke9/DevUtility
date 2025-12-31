@@ -1,0 +1,12 @@
+{
+  "name": "com.daisuke9.devutility",
+  "version": "0.0.1",
+  "displayName": "Dev Utility",
+  "description": "Unity development and debugging utilities",
+  "unity": "6000.0",
+  "dependencies": {},
+  "keywords": ["debug", "utility", "tools"],
+  "author": {
+    "name": "daisuke9"
+  }
+}
