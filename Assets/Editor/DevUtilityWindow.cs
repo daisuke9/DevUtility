@@ -5,6 +5,14 @@ using UnityEngine.UIElements;
 
 public class DevUtilityWindow : EditorWindow
 {
+    private FloatField _timeScaleField;
+    private Slider _timeScaleSlider;
+
+    private Label _fpsLabel;
+    private float deltaTime = 0f;
+
+
+    
     [MenuItem("Window/DevUtility")]
     public static void ShowWindow()
     {
@@ -15,14 +23,15 @@ public class DevUtilityWindow : EditorWindow
     private void OnEnable()
     {
         EditorApplication.playModeStateChanged += OnPlaymodeStateChanged;
+        EditorApplication.update += UpdateFps;
     }
     
     private void OnDisable()
     {
         EditorApplication.playModeStateChanged -= OnPlaymodeStateChanged;
+        EditorApplication.update -= UpdateFps;
     }
-    
-    
+
     private void OnPlaymodeStateChanged(PlayModeStateChange state)
     {
         if (state == PlayModeStateChange.EnteredEditMode ||
@@ -32,11 +41,6 @@ public class DevUtilityWindow : EditorWindow
             UpdateTimeScaleValue();
         }
     }
-
-
-    private FloatField _timeScaleField;
-    private Slider _timeScaleSlider;
-
 
     public void CreateGUI()
     {
@@ -52,6 +56,9 @@ public class DevUtilityWindow : EditorWindow
         _timeScaleSlider = rootVisualElement.Q<Slider>("timeScaleSlider");
         var timeScaleResetButton = rootVisualElement.Q<Button>("timeScaleResetButton");
         
+        // パフォーマンス要素
+        _fpsLabel = rootVisualElement.Q<Label>("fpsLabel");
+
         _timeScaleField.SetValueWithoutNotify(Time.timeScale);
         _timeScaleSlider.SetValueWithoutNotify(Time.timeScale);
         
@@ -84,4 +91,16 @@ public class DevUtilityWindow : EditorWindow
     }
 
     private float RoundedTimeScale(float value) => Mathf.Round(value * 10f) / 10f;
+    
+    
+    private void UpdateFps()
+    {
+        if (!Application.isPlaying) { return; }
+        if (_fpsLabel == null) { return; }
+        
+        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        var fps = 1f / deltaTime;
+        _fpsLabel.text = $"FPS: {fps:F1}";
+    }
+    
 }
