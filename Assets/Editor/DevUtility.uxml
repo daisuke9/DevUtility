@@ -7,5 +7,13 @@
     </ui:Foldout>
     <ui:Foldout text="Foldout" name="performanceSection">
         <ui:Label text="FPS: --" name="fpsLabel"/>
+        <ui:Label text="TargetFrameRate: --" name="targetFrameRateLabel"/>
+        <ui:GroupBox style="height: 43px; flex-direction: row;">
+            <ui:Button text="5" name="targetFrameRate5Button"/>
+            <ui:Button text="30" name="targetFrameRate30Button"/>
+            <ui:Button text="60" name="targetFrameRate60Button"/>
+            <ui:Button text="120" name="targetFrameRate120Button"/>
+            <ui:Button text="Unlimited" name="targetFrameRateUnlimitedButton"/>
+        </ui:GroupBox>
     </ui:Foldout>
 </ui:UXML>
