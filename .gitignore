@@ -74,6 +74,9 @@ crashlytics-build.properties
 # 2024 recommended additions
 *.unitypackage.meta
 
+# Unity UI Toolkit
+UIElementsSchema/
+
 # OS generated files
 .DS_Store
 .DS_Store?
